@@ -6,8 +6,8 @@ function validateDrug(req, res, next) {
 
     const Drug = z
       .object({
-        name: z.string(),
-        class: z.string(),
+        name: z.string().min(1).max(100),
+        class: z.string().min(1).max(100),
       })
       .strict();
 
@@ -19,6 +19,25 @@ function validateDrug(req, res, next) {
   }
 }
 
+function validateQuery(req, res, next) {
+  try {
+    const query = req.query;
+
+    const Query = z
+      .object({
+        drugName: z.string().min(1).max(100),
+      })
+      .strict();
+
+    Query.parse(query);
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   validateDrug,
+  validateQuery,
 };

@@ -4,7 +4,7 @@ async function fetchAllDrugs(req, res, next) {
   try {
     const data = await db.any("SELECT * FROM drugs");
 
-    res.send(data);
+    res.status(200).send(data);
   } catch (err) {
     next(err);
   }
@@ -12,13 +12,13 @@ async function fetchAllDrugs(req, res, next) {
 
 async function searchDrugs(req, res, next) {
   try {
-    const drugName = req.params.drugName;
+    const drugName = req.query.drugName;
 
     const data = await db.any("SELECT * FROM drugs WHERE name ILIKE $1", [
       `%${drugName}%`,
     ]);
 
-    res.send(data);
+    res.status(200).send(data);
   } catch (err) {
     next(err);
   }
@@ -28,7 +28,7 @@ async function fetchAllDrugClasses(req, res, next) {
   try {
     const data = await db.any("SELECT DISTINCT class FROM drugs");
 
-    res.send(data);
+    res.status(200).send(data);
   } catch (err) {
     next(err);
   }
@@ -42,7 +42,7 @@ async function fetchDrugsByClass(req, res, next) {
       drugClassQuery,
     ]);
 
-    res.send(data);
+    res.status(200).send(data);
   } catch (err) {
     next(err);
   }

@@ -9,7 +9,7 @@ async function addDrug(req, res, next) {
       drug.class,
     ]);
 
-    res.send("Posted");
+    res.status(201).send("Posted");
   } catch (err) {
     next(err);
   }
