@@ -36,10 +36,10 @@ async function fetchAllDrugClasses(req, res, next) {
 
 async function fetchDrugsByClass(req, res, next) {
   try {
-    const drugClassQuery = req.params.drugClass;
+    const drugClass = req.params.drugClass;
 
     const data = await db.any("SELECT * FROM drugs WHERE class = $1", [
-      drugClassQuery,
+      drugClass,
     ]);
 
     res.status(200).send(data);

@@ -6,7 +6,10 @@ const {
   fetchAllDrugClasses,
   fetchDrugsByClass,
 } = require("../controllers/fetch");
-const { validateQuery } = require("../middlewares/validation");
+const {
+  validateQuery,
+  validateDrugClass,
+} = require("../middlewares/validation");
 
 // fetch all drugs
 router.get("/api/drugs", fetchAllDrugs);
@@ -18,6 +21,10 @@ router.get("/api/search", validateQuery, searchDrugs);
 router.get("/api/drugClasses", fetchAllDrugClasses);
 
 // fetch drugs by excat class name
-router.get("/api/drugsByClass/:drugClass", fetchDrugsByClass);
+router.get(
+  "/api/drugsByClass/:drugClass",
+  validateDrugClass,
+  fetchDrugsByClass
+);
 
 module.exports = router;

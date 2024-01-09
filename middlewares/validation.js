@@ -37,7 +37,22 @@ function validateQuery(req, res, next) {
   }
 }
 
+function validateDrugClass(req, res, next) {
+  try {
+    const drugClass = req.params.drugClass;
+
+    const DrugClass = z.string().min(1).max(100);
+
+    DrugClass.parse(drugClass);
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   validateDrug,
   validateQuery,
+  validateDrugClass,
 };
