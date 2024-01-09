@@ -6,7 +6,7 @@ async function removeDrugById(req, res, next) {
 
     await db.none("DELETE FROM drugs WHERE id = $1", [id]);
 
-    res.status(200).send("Deleted");
+    res.status(200).send({ status: "Success" });
   } catch (err) {
     next(err);
   }

@@ -19,6 +19,48 @@ function validateDrug(req, res, next) {
   }
 }
 
+function validateDrugWithId(req, res, next) {
+  try {
+    const updatedDrug = req.updatedDrug;
+    const id = req.originalId;
+
+    const Drug = z
+      .object({
+        id: z.literal(id),
+        name: z.string().min(1).max(100),
+        class: z.string().min(1).max(100),
+      })
+      .strict();
+
+    Drug.parse(updatedDrug);
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
+function validateMultipleDrugs(req, res, next) {
+  try {
+    const drugs = req.body;
+
+    const Drug = z
+      .object({
+        name: z.string().min(1).max(100),
+        class: z.string().min(1).max(100),
+      })
+      .strict();
+
+    drugs.forEach((drug) => {
+      Drug.parse(drug);
+    });
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
 function validateQuery(req, res, next) {
   try {
     const query = req.query;
@@ -55,4 +97,6 @@ module.exports = {
   validateDrug,
   validateQuery,
   validateDrugClass,
+  validateMultipleDrugs,
+  validateDrugWithId,
 };
