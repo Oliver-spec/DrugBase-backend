@@ -6,25 +6,17 @@ const {
   fetchAllDrugClasses,
   fetchDrugsByClass,
 } = require("../controllers/fetch");
-const {
-  validateQuery,
-  validateDrugClass,
-} = require("../middlewares/validation");
 
 // fetch all drugs
 router.get("/api/drugs", fetchAllDrugs);
 
 // fetch drug by ILIKE drug name
-router.get("/api/search", validateQuery, searchDrugs);
+router.get("/api/search", searchDrugs);
 
 // fetch all drug classes
 router.get("/api/drugClasses", fetchAllDrugClasses);
 
 // fetch drugs by excat class name
-router.get(
-  "/api/drugsByClass/:drugClass",
-  validateDrugClass,
-  fetchDrugsByClass
-);
+router.get("/api/drugsByClass", fetchDrugsByClass);
 
 module.exports = router;
